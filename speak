@@ -1,0 +1,8 @@
+#!/bin/bash
+[[ $PATH =~ $HOME/spx  ]] || PATH=$HOME/spx:$PATH 
+NUMBER=${1?"missing parameter 0, 1 or 2"}
+readarray -t -n 0 < speech.txt
+NAME=$(jq '.VoiceNames[198].ShortName' < voices.json | tr -d '"')
+TEXT=${MAPFILE[$NUMBER]}
+#spx synthesize --voice $NAME --text $TEXT --speakers  2>&1 > /dev/null
+spx synthesize --voice $NAME --text $TEXT --speakers
